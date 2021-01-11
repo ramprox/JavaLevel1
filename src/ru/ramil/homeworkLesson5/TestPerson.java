@@ -3,6 +3,9 @@ package ru.ramil.homeworkLesson5;
 import java.util.Random;
 
 public class TestPerson {
+
+    private static final int MAX_AGE = 40;
+
     public static void main(String[] args) {
         int count = 5;
         Person[] persArray = new Person[count];
@@ -20,7 +23,7 @@ public class TestPerson {
                 "vasilev@mail.ru", "8-444-444-44-44", salaries[4], ages[4]);
 
         for(Person p : persArray) {
-            if(p.getAge() > 40) {
+            if(p.getAge() > MAX_AGE) {
                 p.info();
                 System.out.println();
             }
