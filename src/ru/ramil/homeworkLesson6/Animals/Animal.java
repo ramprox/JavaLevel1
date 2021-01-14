@@ -38,7 +38,9 @@ public abstract class Animal {
         printResult(length, maxRunLength, ACTION_TYPE_RUN);
     }
 
-    public abstract void swim(float length);
+    public void swim(float length) {
+        System.out.println("Животное успешно проплыло " + length + "м!");
+    }
 
     public void jump(float height) {
         printResult(height, maxJumpHeight, ACTION_TYPE_JUMP);
