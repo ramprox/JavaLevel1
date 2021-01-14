@@ -7,12 +7,9 @@ public abstract class Animal {
     protected final int age;
     protected final float maxRunLength;
     protected final float maxJumpHeight;
+    protected Message message;
 
     private static int animalCount = 0;
-
-    private static final String ACTION_TYPE_RUN = "бегать";
-    protected static final String ACTION_TYPE_SWIM = "плавать";
-    private static final String ACTION_TYPE_JUMP = "прыгать";
 
     protected Animal(String name, int age, String color) {
         this(name, age, color, 0, 0);
@@ -35,59 +32,29 @@ public abstract class Animal {
     public abstract void voice();
 
     public void run(float length) {
-        printResult(length, maxRunLength, ACTION_TYPE_RUN);
+        message = Message.run();
+        printResult(length, maxRunLength);
     }
 
     public void swim(float length) {
-        System.out.println("Животное успешно проплыло " + length + "м!");
-    }
-
-    public void jump(float height) {
-        printResult(height, maxJumpHeight, ACTION_TYPE_JUMP);
-    }
-
-    protected void printResult(float size, float maxSize, String actionType) {
-        boolean isAbleToOvercome = size <= maxSize;
-        String message;
-        if(isAbleToOvercome) {
-            message = getSuccessfulMessage(size, actionType);
-        } else {
-            message = getUnsuccessfulMessage(size, actionType);
-        }
+        message = Message.swim();
+        message.insertSuccessfulResult(name, length);
         System.out.println(message);
     }
 
-    private String getSuccessfulMessage(float size, String actionType) {
-        String result = name;
-        switch (actionType) {
-            case ACTION_TYPE_RUN:
-                result += " успешно пробежал(а) ";
-                break;
-            case ACTION_TYPE_SWIM:
-                result += " успешно проплыл(а) ";
-                break;
-            case ACTION_TYPE_JUMP:
-                result += " успешно перепрыгнул(а) через ";
-                break;
-        }
-        result += size + "м!";
-        return result;
+    public void jump(float height) {
+        message = Message.jump();
+        printResult(height, maxJumpHeight);
     }
 
-    private String getUnsuccessfulMessage(float size, String actionType) {
-        String result = name;
-        switch (actionType) {
-            case ACTION_TYPE_RUN:
-                result += " не может пробежать ";
-                break;
-            case ACTION_TYPE_SWIM:
-                result += " не может проплыть ";
-                break;
-            case ACTION_TYPE_JUMP:
-                result += " не может перепрыгнуть через ";
+    protected void printResult(float size, float maxSize) {
+        boolean isAbleToOvercome = size <= maxSize;
+        if(isAbleToOvercome) {
+            message.insertSuccessfulResult(name, size);
+        } else {
+            message.insertUnsuccessfulResult(name, size);
         }
-        result += size + "м!";
-        return result;
+        System.out.println(message);
     }
 
     public void printInfo() {
