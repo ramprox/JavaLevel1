@@ -28,7 +28,7 @@ public class Dog extends Animal {
 
     @Override
     public void swim(float length) {
-        message = Message.swim();
+        message = MessageBuilder.swim();
         printResult(length, maxSwimLength);
     }
 

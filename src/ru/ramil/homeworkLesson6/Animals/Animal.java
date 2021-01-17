@@ -7,7 +7,7 @@ public abstract class Animal {
     protected final int age;
     protected final float maxRunLength;
     protected final float maxJumpHeight;
-    protected Message message;
+    protected MessageBuilder message;
 
     private static int animalCount = 0;
 
@@ -32,18 +32,18 @@ public abstract class Animal {
     public abstract void voice();
 
     public void run(float length) {
-        message = Message.run();
+        message = MessageBuilder.run();
         printResult(length, maxRunLength);
     }
 
     public void swim(float length) {
-        message = Message.swim();
+        message = MessageBuilder.swim();
         message.insertSuccessfulResult(name, length);
         System.out.println(message);
     }
 
     public void jump(float height) {
-        message = Message.jump();
+        message = MessageBuilder.jump();
         printResult(height, maxJumpHeight);
     }
 
@@ -72,7 +72,7 @@ public abstract class Animal {
         return info;
     }
 
-    protected static class Message {
+    protected static class MessageBuilder {
         private static final String ACTION_TYPE_RUN = "бегать";
         private static final String ACTION_TYPE_SWIM = "плавать";
         private static final String ACTION_TYPE_JUMP = "прыгать";
@@ -80,21 +80,21 @@ public abstract class Animal {
         private final String actionType;
         private String message;
 
-        private Message(String actionType) {
+        private MessageBuilder(String actionType) {
             this.actionType = actionType;
             this.message = "";
         }
 
-        public static Message run() {
-            return new Message(ACTION_TYPE_RUN);
+        public static MessageBuilder run() {
+            return new MessageBuilder(ACTION_TYPE_RUN);
         }
 
-        public static Message swim() {
-            return new Message(ACTION_TYPE_SWIM);
+        public static MessageBuilder swim() {
+            return new MessageBuilder(ACTION_TYPE_SWIM);
         }
 
-        public static Message jump() {
-            return new Message(ACTION_TYPE_JUMP);
+        public static MessageBuilder jump() {
+            return new MessageBuilder(ACTION_TYPE_JUMP);
         }
 
         public void insertSuccessfulResult(String name, float size) {
