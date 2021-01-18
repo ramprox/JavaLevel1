@@ -18,7 +18,17 @@ public class Plate {
                 '}';
     }
 
+    public int getFood() {
+        return food;
+    }
+
     public void decreaseFood(int appetite) {
         this.food -= appetite;
+        if(this.food < 0)
+            this.food = 0;
+    }
+
+    public void increaseFood(int food) {
+        this.food += food;
     }
 }
