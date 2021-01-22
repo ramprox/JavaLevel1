@@ -62,6 +62,7 @@ public class MainWindow extends JFrame {
 
     private void setTurnInfoAndCheck(Player player, Cell cellTurn) {
         cellTurn.setDot(player.getDot());
+        cellTurn.setEnabled(false);
         gameData.setCurrentTurnInfo(player, cellTurn);
         String result = endGameChecker.check(gameData);
         if(result != null) {
